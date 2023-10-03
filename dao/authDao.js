@@ -3,7 +3,7 @@ const modelLogin = require('../models/loginModel');
 
 class AuthService {
   loginAuth(loginData){
-    modelLogin.find({userName: loginData.user, passwoord: loginData.password},(error,userlogin)=>{
+    modelLogin.find({userName: loginData.user, password: loginData.password},(error,userlogin)=>{
       if(error){
         throw new Error (error);
       }
