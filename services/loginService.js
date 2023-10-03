@@ -1,22 +1,16 @@
-const express = require('express');
-const modelLogin = require('../models/loginModel');
+const authDAO = require ('../dao/authDao');
 
-class AuthService {
+class LoginService {
   auth(loginData){
-    modelLogin.find({userName: loginData.user, passwoord: loginData.password},(error,userlogin)=>{
-      if(error){
-        throw new Error (error);
-      }
-      else {
-        if (userlogin.length == 0){
-          throw new Error ("No user was found, verify your username and password");
-        }
-        else {
-          //Here the JWT is generated and returned to the controller
-        }
-      }
-    });
+    if(loginData.user.trim() == "" ||loginData.user.trim() == "undefined" ||
+       loginData.password.trim() == "" ||loginData.password.trim() == "undefined"){
+        throw new Error ("Some data is empty, validate the username os password");
+    }
+    else {
+      //send valid data to DAO
+      return authDAO.loginAuth(loginData);
+    }
   }
 }
 
-module.exports = new AuthService();
+module.exports = new LoginService();
