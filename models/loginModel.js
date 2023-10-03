@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const loginInfo = new Schema({
+const userInfo = new Schema({
   userId: {
     type: String,
     unique: true,
@@ -28,4 +28,4 @@ const loginInfo = new Schema({
   }
 });
 
-module.exports = mongoose.model("login", loginInfo);
+module.exports = mongoose.model("login", userInfo);
