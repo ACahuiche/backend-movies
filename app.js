@@ -14,9 +14,11 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 const loginRoutes = require ('./routes/loginRoutes');
+const userRoutes = require ('./routes/userRoutes');
 
 // EndPoints
 app.use ('/login', loginRoutes);
+app.use ('/user', userRoutes);
 
 app.listen(port, () => {
   console.log(`Movies server running in port ${port}`);
