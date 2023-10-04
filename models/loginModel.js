@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const dbconn = require("../config/mongodbconnection");
+const { Schema } = dbconn;
 
 const userInfo = new Schema({
   userId: {
@@ -28,4 +28,4 @@ const userInfo = new Schema({
   }
 });
 
-module.exports = mongoose.model("login", userInfo);
+module.exports = dbconn.model("user", userInfo);
