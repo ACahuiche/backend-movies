@@ -2,11 +2,12 @@ const loginService = require ('../services/loginService');
 class LoginController {
 
   async authLogin(req,res){
-    let loginData = req.body;
-    
+    let userEmailData = req.body.userEmail;
+    let passwordData = req.body.password;
+
     try{
       // we generate the JWT Token if the user exist
-      let token = await loginService.auth(loginData);
+      let token = await loginService.auth(userEmailData, passwordData);
       res.status(200).json({
         success:true,
         message: 'Auth correct',

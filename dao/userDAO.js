@@ -12,16 +12,13 @@ class UserDAO {
       .then((result) =>{
         if(result.length == 0){
           throw new Error(`It is not posible to save the user: ${result}`);
-          console.log("Bloque 1 errorrs");
         }
         else{
           return result;
-          console.log("Bloque 2 exito");
         }
       })
       .catch((err) =>{
         throw new Error(`It is not posible to save the user: ${err}`);
-        console.log("Bloque 3 error");
       })
       
     }
