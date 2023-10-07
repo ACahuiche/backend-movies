@@ -1,4 +1,5 @@
 const authDAO = require ('../dao/authDao');
+const security = require('../tools/security');
 
 class LoginService {
   async auth(userEmailData, passwordData){
