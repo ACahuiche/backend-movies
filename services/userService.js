@@ -1,4 +1,5 @@
 const userDAO = require ('../dao/userDAO.js');
+const security = require('../tools/security.js');
 
 class UserService {
   dataValidateToSave(newUserData){
@@ -21,6 +22,9 @@ class UserService {
     if(!newUserData.isAdmin ||newUserData.isAdmin.trim() == '' || newUserData.isAdmin == 'undefined'){
       newUserData.isAdmin = false;
     }
+
+    let passEncrypt = security.encryptPassword(newUserData.userPassword);
+    newUserData.passEncrypt = passEncrypt;
 
     return userDAO.save(newUserData);
   }

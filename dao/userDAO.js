@@ -6,7 +6,7 @@ class UserDAO {
       userModel.create({
         userName: newUserData.userName,
         userEmail: newUserData.userEmail,
-        userPassword: newUserData.userPassword,
+        userPassword: newUserData.passEncrypt,
         isAdmin: newUserData.isAdmin
       })
       .then((result) =>{
