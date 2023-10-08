@@ -6,8 +6,7 @@ class UserController {
       let userDataSave = await userService.dataValidateToSave(newUserData);
       res.status(200).json({
         success:true,
-        message: 'The new user is save',
-        data: userDataSave
+        message: `The new user ${userDataSave} is save`
       }); 
     }
     catch(error){

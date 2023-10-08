@@ -2,7 +2,7 @@ const userDAO = require ('../dao/userDAO.js');
 const security = require('../tools/security.js');
 
 class UserService {
-  dataValidateToSave(newUserData){
+  async dataValidateToSave(newUserData){
     if(!newUserData){
       throw new Error("The info of new user is Empty");
     }
@@ -26,7 +26,7 @@ class UserService {
     let passEncrypt = security.encryptPassword(newUserData.userPassword);
     newUserData.passEncrypt = passEncrypt;
 
-    return userDAO.save(newUserData);
+    return await userDAO.save(newUserData);
   }
 }
 

@@ -1,5 +1,4 @@
 const authDAO = require ('../dao/authDao');
-const security = require('../tools/security');
 
 class LoginService {
   async auth(userEmailData, passwordData){
@@ -9,7 +8,6 @@ class LoginService {
         throw new Error ("Some data is empty, validate the username os password");
     }
     else {
-      //send valid data to DAO
       return await authDAO.loginAuth(userEmailData, passwordData);
     }
   }

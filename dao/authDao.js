@@ -1,5 +1,7 @@
 const userModel = require("../models/userModel");
 const security = require('../tools/security');
+const securityConfig = require('../config/securityConfig')
+const jwt = require('jsonwebtoken');
 
 class AuthDao {
   
@@ -16,7 +18,12 @@ class AuthDao {
         const match = await security.verifyPassword(passwordData, doc.userPassword);
 
         if(match){
-          const token = "this is my token";
+          let user = {
+            'username': doc.userName,
+            'isAdmin': doc.isAdmin
+          }
+
+          const token = jwt.sign(user ,securityConfig.jwtconfig.secretKey, {expiresIn: securityConfig.jwtconfig.expires});
           return token;
         }
         else {
