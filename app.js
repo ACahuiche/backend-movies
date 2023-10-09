@@ -16,9 +16,14 @@ app.use(morgan("dev"));
 const loginRoutes = require ('./routes/loginRoutes');
 const userRoutes = require ('./routes/userRoutes');
 
+
 // EndPoints
 app.use ('/login', loginRoutes);
 app.use ('/user', userRoutes);
+
+//Temp Endpoints
+const testingRoutes = require ('./routes/testingRoutes');
+app.use ('/testing', testingRoutes);
 
 app.listen(port, () => {
   console.log(`Movies server running in port ${port}`);
