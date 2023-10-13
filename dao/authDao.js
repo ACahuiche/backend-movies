@@ -1,7 +1,8 @@
 const userModel = require("../models/userModel");
 const security = require('../tools/security');
 const securityConfig = require('../config/securityConfig')
-const jwt = require('jsonwebtoken');
+const { createSecretKey } = require('crypto');
+const jwt = require('jose')
 
 class AuthDao {
   
@@ -20,10 +21,16 @@ class AuthDao {
         if(match){
           let user = {
             'username': doc.userName,
-            'isAdmin': doc.isAdmin
+            'isAdmin': doc.isAdmin,
+            'backkey': securityConfig.jwtconfig.backkey
           }
 
-          const token = jwt.sign(user ,securityConfig.jwtconfig.secretKey, {expiresIn: securityConfig.jwtconfig.expires});
+          const secretKey = createSecretKey(securityConfig.jwtconfig.secretKey,'utf-8');
+
+          const token = await new jwt.SignJWT(user)
+          .setProtectedHeader({ alg: securityConfig.jwtconfig.alg })
+          .sign(secretKey)
+
           return token;
         }
         else {

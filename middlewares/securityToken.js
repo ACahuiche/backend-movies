@@ -1,25 +1,27 @@
-const jwt = require('jsonwebtoken');
-const secretKey = require('../config/securityConfig').jwtconfig.secretKey;
+const securityJWTConfig = require('../config/securityConfig').jwtconfig;
+const { createSecretKey } = require('crypto');
+const jwt = require('jose')
 
 class SecurityToken {
-  validate(req, res, next) {
+  async validate(req, res, next) {
     //Authorization: Bearer <token>
     const bearerHeader = req.headers['authorization'];
 
     if(typeof bearerHeader !== 'undefined'){
       const token = bearerHeader.split(" ")[1];
 
-      jwt.verify(token, secretKey, (error, authData) =>{
-        if(error){
-          res.status(403).json({
-            success:false,
-            message: `The token session is incorrect`
-          }); 
-        }
-        else {
-          next();
-        }
-      });
+      const secretKey = createSecretKey(securityJWTConfig.secretKey,'utf-8');
+      try{
+        const { payload, protectedHeader } = await jwt.jwtVerify(token, secretKey);
+        next();
+      }
+      catch(error){
+        res.status(403).json({
+          success:false,
+          message: `The token session is incorrect`
+        }); 
+      }
+
     }
     else {
       res.status(403).json({
