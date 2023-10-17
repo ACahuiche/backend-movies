@@ -17,7 +17,7 @@ class LoginController {
     catch (error) {
       res.status(401).json({
         success: false,
-        message: `Auth error: ${error}`
+        message: `${error}`
       });
     }
 
